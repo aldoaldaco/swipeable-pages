@@ -1,0 +1,48 @@
+<dom-module id="cells-swipeable-tab-pages-styles"><template><style>
+    :host {
+        display: block;
+        box-sizing: border-box;
+        font-family: var(--cells-fontDefault, sans-serif);
+        position: relative;
+        @apply --cells-swipeable-tab-pages;
+        --cells-private_tabs-flex: 1 0 33%; }
+
+    :host([hidden]), [hidden] {
+        display: none !important; }
+
+    *, *:before, *:after {
+        box-sizing: inherit; }
+
+    .slider {
+        height: var(--cells-swipeable-tab-pages-slider-height, 100%); }
+
+    .tabs-wrapper {
+        margin: 0 1.125rem;
+        overflow-x: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: var(--cells-swipeable-tab-pages-tabs-wrapper-z-index, 1);
+        @apply --cells-swipeable-tab-pages-tabs-wrapper; }
+
+    .tabs {
+        color: inherit;
+        background-color: transparent;
+        font-size: var(--cells-swipeable-tab-pages-tabs-font-size, 1rem);
+        font-weight: bold;
+        transition: -webkit-transform 0.3s cubic-bezier(0.42, 0, 0.11, 0.99);
+        transition: transform 0.3s cubic-bezier(0.42, 0, 0.11, 0.99);
+        transition: transform 0.3s cubic-bezier(0.42, 0, 0.11, 0.99), -webkit-transform 0.3s cubic-bezier(0.42, 0, 0.11, 0.99);
+        will-change: transform;
+        @apply --cells-swipeable-tab-pages-tabs;
+        --cells-radio-tabs-color: var(--cells-swipeable-tab-pages-tab-color, inherit);
+        --cells-radio-tabs-color-selected: var(--cells-swipeable-tab-pages-tab-color-selected, var(--cells-radio-tabs-color, inherit));
+        --cells-radio-tabs-border-bottom-color: var(--cells-swipeable-tab-pages-tab-border-bottom-color, transparent);
+        --cells-radio-tabs-option-flex: var(--cells-private_tabs-flex);
+        --cells-radio-tabs-content: { transition: opacity 0.6s; opacity: var(--cells-swipeable-tab-pages-tab-opacity, 0.5); };
+        --cells-radio-tabs-selected: { opacity: 1; };
+        --cells-radio-tabs-option-focus: { opacity: 1; };
+        --cells-ratio-tabs-indicator: { display: none; @apply --cells-swipeable-tab-pages-tabs-indicator; }; }
+
+</style></template></dom-module>

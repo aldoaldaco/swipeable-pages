@@ -1,0 +1,112 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../cells-iron-swipeable-pages/cells-iron-swipeable-pages.html">
+<link rel="import" href="../cells-radio-tabs/cells-radio-tabs.html">
+<link rel="import" href="swipeable-colors-styles.html">
+<link rel="import" href="swipeable-pages-styles.html">
+<!--
+`<cells-swipeable-tab-pages>` displays a set of pages with optional tabs and animated background colors that can be changed by swiping.
+
+By default, 3 tabs (customizable) are visible on each slide and they are moved with a transition to the corresponding side when the selected slide changes.
+
+To set the tab labels and the background color for each slide, add data attributes to each slide children. `data-label` for the tab and `data-background` for the background color.
+
+__Example with tabs and background-color transition:__
+
+```html
+<cells-swipeable-tab-pages>
+  <div data-label="Page 1" data-background="#2DCCCD">Page 1</div>
+  <div data-label="Page 2" data-background="#0000FF">Page 2</div>
+  <div data-label="Page 3" data-background="#7043C4">Page 3</div>
+  <div data-label="Page 4" data-background="#5BBEFF">Page 4</div>
+</cells-swipeable-tab-pages>
+```
+
+To disable the background-color transitions, don't set `data-background` attributes. If you need different background colors for each slide, simply apply your own styles to each of the slides.
+
+__Example only with tabs and without background transitions:__
+
+```html
+<style>
+  cells-swipeable-tab-pages :nth-child(1) { background-color: #2DCCCD; }
+</style>
+
+<cells-swipeable-tab-pages>
+  <div data-label="Page 1">Page 1</div>
+  <div data-label="Page 2">Page 2</div>
+  <div data-label="Page 3">Page 3</div>
+  <div data-label="Page 4">Page 4</div>
+</cells-swipeable-tab-pages>
+```
+
+__Example without tabs and background colors:__
+
+```html
+<cells-swipeable-tab-pages>
+  <div>Page 1</div>
+  <div>Page 2</div>
+  <div>Page 3</div>
+  <div>Page 4</div>
+</cells-swipeable-tab-pages>
+```
+
+## Styling
+
+The following custom properties and mixins are available for styling:
+
+| Custom Property                                 | Description                                        | Default                                |
+| :---------------------------------------------- | :------------------------------------------------- | :------------------------------------- |
+| --cells-swipeable-tab-pages                         | Mixin applied to :host                             | {}                                     |
+| --cells-swipeable-tab-pages-slider-height           | `height` of the slider                             | 100%                                   |
+| --cells-swipeable-tab-pages-bg-layer                | Empty mixin applied to the background color layers | {}                                     |
+| --cells-swipeable-tab-pages-tabs-wrapper-z-index    | `z-index` applied to the tabs wrapper              | 1                                      |
+| --cells-swipeable-tab-pages-tabs-wrapper            | Empty mixin applied to the tabs wrapper            | {}                                     |
+| --cells-swipeable-tab-pages-tabs-font-size          | `font-size` of the tabs                            | 1rem                                   |
+| --cells-swipeable-tab-pages-tabs                    | Empty mixin applied to the tabs                    | {}                                     |
+| --cells-swipeable-tab-pages-tab-color               | Tab color                                          | inherit                                |
+| --cells-swipeable-tab-pages-tab-color-selected      | Selected tab color                                 | var(--cells-radio-tabs-color, inherit) |
+| --cells-swipeable-tab-pages-tab-border-bottom-color | `border-bottom` of the tabs                        | transparent                            |
+| --cells-swipeable-tab-pages-tab-opacity             | `opacity` of the not selected tabs                 | 0.5                                    |
+| --cells-swipeable-tab-pages-tabs-indicator          | Empty mixin applied to the selected tab indicator  | {}                                     |
+
+@customElement
+@polymer
+@hero cells-swipeable-tab-pages.png
+@demo demo/index.html
+-->
+<dom-module id="swipeable-pages">
+  <template>
+    <style include="swipeable-pages-styles swipeable-pages-shared-styles"></style>
+    <template is="dom-if" if="[[_pagesData]]">
+      <div class="tabs-wrapper">
+        <cells-radio-tabs id="tabs"
+                          class="tabs"
+                          options="[[_tabLabels]]"
+                          selected="{{selected}}">
+        </cells-radio-tabs>
+      </div>
+
+      <cells-swipeable-colors
+              backgrounds="[[_backgrounds]]"
+              translate-ratio="[[translateRatio]]"
+              selected="[[selected]]"
+              next-selected="[[nextSelected]]"
+              background-transition-sensitivity="[[backgroundTransitionSensitivity]]"
+              is-dragging="[[isHorizontalDragging]]">
+      </cells-swipeable-colors>
+    </template>
+
+    <cells-iron-swipeable-pages id="slider"
+                                disabled="[[disabled]]"
+                                selected-attribute="active"
+                                transition-timing-function="[[transitionTimingFunction]]"
+                                class="slider"
+                                threshold="[[threshold]]"
+                                no-cycle="[[!cycle]]"
+                                transition-duration="[[transitionDuration]]"
+                                selected="{{selected}}">
+      <slot></slot>
+    </cells-iron-swipeable-pages>
+  </template>
+
+  <script src="swipeable-pages.js"></script>
+</dom-module>

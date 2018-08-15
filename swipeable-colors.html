@@ -1,0 +1,17 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="swipeable-colors-styles.html">
+<!--
+`<cells-swipeable-colors>` changes the background color and opacity of two stacked layers when the `selected` and/or `nextSelected` properties changes.
+
+It is used internally by `<cells-swipeable-tab-pages>` for the color transition of the slides and it's intended to be used with another element with sliding / dragging capabilities to
+set its `translateRatio` and `isDragging` properties when a user does a swipe gesture.
+-->
+<dom-module id="swipeable-colors">
+    <template>
+        <style include="swipeable-colors-styles"></style>
+        <div class="bg-layer" style$="background-color: [[_nextBackgroundColor]];"></div>
+        <div class$="bg-layer bg-layer--front bg-layer--dragging-[[isDragging]]" style$="opacity: [[_currentBackgroundOpacity]]; background-color: [[_currentBackgroundColor]];"></div>
+    </template>
+
+    <script src="swipeable-colors.js"></script>
+</dom-module>
